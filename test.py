@@ -1,4 +1,4 @@
-import numpy as np
+
 import matplotlib.pylab as plt
 
 class Geometry:
@@ -46,6 +46,8 @@ class Polygon(Geometry):
             res.append(Line(point_a.get_name() + '-' + point_b.get_name(), point_a, point_b))
             point_a=point_b
         res.append(Line(point_a.get_name() + '-' + points[0].get_name(), point_a, points[0]))
+
+from collections import OrderedDict
 
 class Plotter:
 
@@ -95,7 +97,32 @@ y_coordinates=[int(i) for i in y_coordinates]
 print(x_coordinates)
 print(y_coordinates)
 
+with open('input.csv') as r:
+    point_coordinates = r.readlines()
+
+point_coordinates.pop(0)
+
+print(point_coordinates)
+
+point_x_coordinates = []
+
+point_y_coordinates = []
+
+for each_item in point_coordinates:
+    id, x, y = each_item.split(',')
+    point_x_coordinates.append(x.strip())
+    point_y_coordinates.append(y.strip())
+
+point_x_coordinates=[float(i) for i in point_x_coordinates]
+
+point_y_coordinates=[float(i) for i in point_y_coordinates]
+
+print(point_x_coordinates)
+print(point_y_coordinates)
+
+
 plotter= Plotter()
 plotter.add_polygon(x_coordinates,y_coordinates)
-plotter
+plotter.add_point(point_x_coordinates,point_y_coordinates)
 plt.show()
+
